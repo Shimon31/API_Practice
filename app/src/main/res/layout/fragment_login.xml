@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
-    tools:context=".ui.LoginFragment">
+    tools:context=".ui.login.LoginFragment">
 
     <ImageView
         android:id="@+id/logo"
@@ -62,8 +62,8 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="3dp"
+        android:layout_height="0dp"
         android:layout_margin="20dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"

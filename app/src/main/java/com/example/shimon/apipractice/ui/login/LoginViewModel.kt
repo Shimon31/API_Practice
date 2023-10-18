@@ -1,4 +1,4 @@
-package com.example.shimon.apipractice.ui
+package com.example.shimon.apipractice.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

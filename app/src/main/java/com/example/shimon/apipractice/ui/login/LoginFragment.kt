@@ -1,4 +1,4 @@
-package com.example.shimon.apipractice.ui
+package com.example.shimon.apipractice.ui.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,22 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shimon.apipractice.R
+import com.example.shimon.apipractice.base.BaseFragment
 import com.example.shimon.apipractice.data.model.login.RequestLogin
 import com.example.shimon.apipractice.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
-    lateinit var binding: FragmentLoginBinding
+class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
-    val viewModel : LoginViewModel by viewModels()
+ val viewModel : LoginViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel.loginResponse.observe(viewLifecycleOwner){
 
@@ -35,13 +31,6 @@ class LoginFragment : Fragment() {
 
         }
 
-        return binding.root
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         binding.signInBTN.setOnClickListener {
 
             binding.progressBar.visibility = View.VISIBLE
@@ -52,6 +41,13 @@ class LoginFragment : Fragment() {
             handleLogin("john@mail.com","changeme")
 
         }
+
+        binding.RegisterBTN.setOnClickListener {
+
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+
+        }
+
     }
 
     private fun handleLogin(email: String, password: String) {
