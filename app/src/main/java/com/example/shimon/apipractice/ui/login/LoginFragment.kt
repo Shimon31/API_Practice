@@ -11,12 +11,18 @@ import com.example.shimon.apipractice.R
 import com.example.shimon.apipractice.base.BaseFragment
 import com.example.shimon.apipractice.data.model.login.RequestLogin
 import com.example.shimon.apipractice.databinding.FragmentLoginBinding
+import com.example.shimon.apipractice.utils.PrefManager
+import com.example.shimon.apipractice.utils.keys
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
  val viewModel : LoginViewModel by viewModels()
+
+    @Inject
+    lateinit var prefManager: PrefManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,6 +30,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         viewModel.loginResponse.observe(viewLifecycleOwner){
 
             if (it.isSuccessful){
+
+                prefManager.setPref(keys.ACCESS_TOKEN, it.body()?.accessToken!!)
+                prefManager.setPref(keys.REFRESH_TOKEN,it.body()?.refreshToken!!)
 
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 binding.progressBar.visibility = View.GONE
